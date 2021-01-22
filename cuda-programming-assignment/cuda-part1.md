@@ -19,13 +19,13 @@ SAXPY stands for `Single-Precision A·X Plus Y`.  It is a function in the standa
 
 ### CPU Implementation
 
-An simple CPU-based implementation for `saxpy` can be found in `saxpy_cpu.c` in your Lab1 starter code. One major difference from *ideal* saxpy routines is that the function writes the results of each multiply-accumulate operation into a new vector `z` instead of overwriting the existing vector `y`. This is both in the interest of simplicity and easily checking your code for correction.
+An simple CPU-based implementation for `saxpy` can be found in `saxpy_cpu.c` in your Lab1 starter code. The saxpy routines iterates through scales the elements of the vector `x` by `scale` and accumulates the value into the vector `y`. Thus, the original values of `y` prior to saxpy are overwritten. It might help to backup the original vector `y` to make verifying your own application easier.
 
 
 ```C++
-void saxpy_cpu(float* x, float* y, float* z, float scale, size_t size) {
+void saxpy_cpu(float* x, float* y, float scale, size_t size) {
     for (int idx = 0; idx < size; ++idx) {
-        z[idx] = scale * x[idx] + y[idx];
+        y[idx] = scale * x[idx] + y[idx];
     }
 }
 ```
@@ -33,29 +33,34 @@ void saxpy_cpu(float* x, float* y, float* z, float scale, size_t size) {
 
 SAXPY is an [embarrassing parallel](https://en.wikipedia.org/wiki/Embarrassingly_parallel) workload where the computation of each element in the vector is completely independent of all other elements. To parallelize SAXPY for the GPU, we will use the x dimension (recall thread organization from the lectures) such that each thread will (execute the saxpy computation to) generate a single member of the output vector. 
 
-The host portion of thr saxpy code can be written inside `runGpuSaxpy()` inside `cudaLib.cu`. The device code must be written inside the kernel `saxpy_gpu()`. Some hints about the required functions prototypes are present in the starter code. 
+The host portion of the saxpy code can be written inside `runGpuSaxpy()` inside `cudaLib.cu`. The device code must be written inside the kernel `saxpy_gpu()`. Some hints about the required functions prototypes are present in the starter code. 
 
 **Follow the function interfaces strictly to ensure you code is compatible with the grader application and can be graded without a hitch.**
 
-**NOTE**: The GPU kernels will be tested using a wide variety of inputs both in terms of actual values and the dimensions of the vectors. Make sure you test your code thoroughly with a diverse set of inputs before turning it in.
+**NOTE**: The GPU kernels WILL be tested using a wide variety of inputs both in terms of actual values and the dimensions of the vectors. Make sure you test your code thoroughly with a diverse set of inputs before turning it in.
 
 ### Required Background
 
 A understanding of the following functions will be crucial to proper execution of this portion of the assignment.
 
 ```C++
-cudaMalloc()
-cudaMemcpy()
-cudaFree()
+cudaMalloc();
+cudaMemcpy();
+cudaFree();
 ```
 Furthermore, the elements of each vector can be generated using the `rand()` function. However, you might find it easier to test/debug your code with a simpler pattern of your choice.
 
-#### TODO: Outline -- DONE
-- explain premise
-- explain CPU code
-- explain parallelization scheme for GPU
-- mention expected input - output format
-- 
+### Expected Behavior
+
+The following behavior is expected from  `int runGpuSaxpy(int vectorSize)` 
+
+- generate two random floating point vectors `x` and `y` of `vectorSize` each
+- use a GPU kernel to perform `Y += aX` 
+    - a is a random floating point scaling factor
+- verify the kernel using CPU code
+    - you may use the functions already provided in `cpuLib` library
+
+
 
 -----------------------------------------------------------
 <br>
@@ -223,7 +228,7 @@ The shell commands required to build are listed below along with an expected out
 -- USE_CUDA: ON
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/abhaumic/Teaching/lab1
+-- Build files have been written to: /home/....../lab1
 [ 16%] Building NVCC (Device) object src/CMakeFiles/cudaLib.dir/cudaLib_generated_cudaLib.cu.o
 [ 33%] Linking CXX static library libcudaLib.a
 [ 33%] Built target cudaLib
@@ -251,11 +256,61 @@ Select application:
 
 Selecting the appropriate option will result in execution of the corresponding application.
 
+-------------------------------------
 
-### OPTIONAL: MAP-Reduce 
+<br>
+
+## Report
+
+
+### Profiling a CUDA Application
+
+The CUDA SDK comes with a built in profiler `nvprof` [[3]](#3). 
+
+    The nvprof profiling tool enables you to collect and view profiling data from the command-line. nvprof enables the collection of a timeline of CUDA-related activities on both CPU and GPU, including kernel execution, memory transfers, memory set and CUDA API calls and events or metrics for CUDA kernels. Profiling options are provided to nvprof through command-line options. Profiling results are displayed in the console after the profiling data is collected, and may also be saved for later viewing
+
+Profiling a pre-built application using the profiler is as simple as launching nvprof with the application path as argument.
+
+```bash
+$ nvprof ./lab1
+```
+
+The profiler presents an interactive console which allows you to execute the application as usual and on application termination, provides a categorized table with values like below.
+
+```bash
+           Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:  
+ 
+      API calls:   
+```
+
+Refer the profiling section of [CUDA Toolkit Documentation](https://docs.nvidia.com/cuda/profiler-users-guide/index.html#nvprof-overview) for more details about the nvprof tool.
+
+The nvprof output can be used to quantitatively measure the execution time of a CUDA application with a breakdown on the time spent in each kernel or API call. The profiler presents a wealth of information. It is imperative that you become familiar with utilizing the profiler information to measure code performance and the impact of optimization steps / changes in future labs.
+
+### Reporting Profiler Output
+
+We expect you to present the information gleaned from profiling your application in the form of a stacked bar chart with which shows the execution time for varying input sizes with a breakdown of each API-Call or Kernel that takes up a major portion of the execution time. (see `time %` column of nvprof output).
+
+- Illustrate the relation of execution time with each parameter you have varied and tested
+    - eg vectorSize for Part A
+- Illustrate the breakup of execution time in terms of the major time-consumers as reported by `nvprof`
+    - eg Suppose you have tested SAXPY for a set of vector sizes = _V_
+    - for each v &in; _V_
+        - place a bar showing the breakup of execution time in terms the top time-consumers reported by `nvprof`
+- Make sure to label your graph axes and categories correctly.
+
+
+Report any observations you have from profiling the code you have written as well as by interpreting the above graph. Try to keep you report within a couple of pages.
+
+
+
 ## References
 <a id="1">[1]</a> 
 [Wikipedia - Monte-Carlo Method](https://en.wikipedia.org/wiki/Monte_Carlo_method)
 
 <a id="cppref">[2]</a>
 [cppreference](https://en.cppreference.com)
+
+<a id="nvprof">[3]</a>
+[CUDA Profiler User Guide](https://docs.nvidia.com/cuda/pdf/CUDA_Profiler_Users_Guide.pdf)
