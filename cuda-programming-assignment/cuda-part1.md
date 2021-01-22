@@ -147,7 +147,10 @@ While running a large Monte-Carlo simulation (>> 1 bn values) you will end up ru
 
 ## Preparing your System
 
-The procedure for logging into your class accounts will have been explained in class. Contact the instructors on Piazza for any trouble regarding access to the same.
+All students will have access to GPU resources through gpu.scholar.rcac.purdue.edu.
+You should be able to use your Purdue Career Accounts to
+ssh into gpu.scholar.rcac.purdue.edu and access a GPU there. You are also free to use your own GPU if you have access to one.
+Contact the instructors on Piazza for any trouble regarding access to the same.
 
 ### Check for GPU & Drivers
 The default setup of the machines available for the class has all the software you need to build and test your project. Ensure that the cuda driver is installed and working with the below command.
