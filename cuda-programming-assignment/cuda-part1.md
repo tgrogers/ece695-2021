@@ -142,15 +142,6 @@ A skeleton is already present in the starter code that can be built upon to comp
 
 While running a large Monte-Carlo simulation (>> 1 bn values) you will end up running a large number of threads each of which will generate a count of points within the unit circle. Since this set of `partial-counts` itself might be (>> 1000 values), you might find it useful to write an additional `reduce` kernel to further reduce the set by summing up portions of this set inside the GPU. This will result in a more tractable size of `partial-counts` that can then be summed up in the CPU to arrive at the final probability. This kernel's behavior will be similar to the `Reduce` portion of [Map-Reduce](https://en.wikipedia.org/wiki/MapReduce).
 
-#### TODO: Outline -- DONE
-- describe monte-carlo pi
-- explain CPU code
-- explain parallelization scheme
-    - add reduction optimization
-- explain curand
-- mention expected input-output format
-
- <br>
 
 # Building and Executing the Project
 
