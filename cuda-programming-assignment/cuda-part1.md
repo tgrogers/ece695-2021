@@ -1,6 +1,6 @@
-# ECE 695 CUDA Programming Part 1 <br><br> Professor Tim Rogers <br><br> TA: Abhishek Bhaumick
+# ECE 695 CUDA Programming Part 1
 
-
+## Professor Tim Rogers <br> TA: Abhishek Bhaumick
 
 ## Due on Feb 6
 ## Introduction
