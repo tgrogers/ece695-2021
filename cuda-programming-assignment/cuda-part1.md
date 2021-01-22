@@ -1,8 +1,8 @@
-# ECE 695 CUDA Programming Part 1 <br><br> Professor Tim Rogers
+# ECE 695 CUDA Programming Part 1 <br><br> Professor Tim Rogers <br><br> TA: Abhishek Bhaumick
 
 
 
-## Due on Feb 6 (TODO: Check)
+## Due on Feb 6
 ## Introduction
 
 The purpose of this lab is to familiarize yourself with CUDA programming and the fundamental methodology for parallelizing a traditional CPU-based algorithm for GPU acceleration.  
