@@ -13,7 +13,7 @@ The official [CUDA Documentation](https://docs.nvidia.com/cuda/) is the best res
 
 > We would strongly recommend reading through the CUDA related links within this document before you start writing code.
 
-This lab is a significant departure from the previous lab. There are a number of unique ways to parallelize each task and each choice comes with its own set of tradeoffs. There is a significant set of possible implementations and we cannot wait to see your unique take on the problems:
+This lab is a significant departure from the previous lab. There are a number of unique ways to parallelize each task and each choice comes with its own set of tradeoffs. There is a significant set of possible implementations and _we cannot wait to see your `ingeneous` and `unique` take on the problems._
 
 > To boldly go where no one has gone before!
 >
@@ -76,6 +76,11 @@ Make sure you handle the edges of the image where the filter window may expand b
 		- and how that influences the working set in each cache
 	- the data storage format and access patterns 
 		- to help select which loops to parallelize
+
+
+> Insufficient facts always invites danger, Captain.
+>
+> -- <cite> Cdr. Spock, USS Enterprise </cite>
 
 
 ## Setting Up a Python Virtual Environment
@@ -187,7 +192,7 @@ A quick overview of the pooling operation in Neural Networks can be found [here]
 >
 > Max pooling is done, in part, to help over-fitting by providing an abstracted form of the representation. As well, it reduces the computational cost by reducing the number of parameters to learn and provides basic translation invariance to the internal representation. Max pooling is done by applying a max filter to (usually) non-overlapping subregions of the initial representation. [[10]](#10)
 
-> The next two labs will introduce a deep neural network in its entirelty and provide you the opportunity to implement a foundational work on DNNs which has been cited > 76k times! -- AlexNet (http://www.cs.toronto.edu/~kriz/imagenet_classification_with_deep_convolutional.pdf).
+> The next two labs will introduce a deep neural network in its entirety and provide you the opportunity to implement a foundational work on DNNs which has been cited > 76k times! -- `AlexNet` (http://www.cs.toronto.edu/~kriz/imagenet_classification_with_deep_convolutional.pdf).
 > For this part, however, you are only required to implement the pooling layer in isolation.
 
 An illustration of the pool operation can be found below
@@ -303,3 +308,6 @@ Arce, G.R. (2004). Weighted Median Filters. In Nonlinear Signal Processing, G.R.
 
 <a id="10">[10]</a> 
 [DeepAI Max-Pooling](https://deepai.org/machine-learning-glossary-and-terms/max-pooling)
+
+
+
