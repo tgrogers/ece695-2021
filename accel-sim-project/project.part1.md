@@ -2,12 +2,12 @@
 
 ## Introduction to GPU Simulation
 
-In this assignment we will introduce you to a GPU Simulators: Accel-Sim (https://accel-sim.github.io) and GPGPU-Sim
+In this assignment we will introduce you to a GPU Simulators: Accel-Sim (https://accel-sim.github.io) and GPGPU-Sim.
 Accel-Sim is a trace-based simulation framework that uses another simulator GPGPU-Sim (http://gpgpu-sim.org) as it's core performance model.
 Documentation on how to use Accel-Sim can be found in the readme's associated with with the github repo - however we will cover the main points you need here.
 There are a variety of documentation sources for GPGPU-Sim, including a somewhat dated manual (http://gpgpu-sim.org/manual).
 There are also some pre-recorded tutorial videos here. Note that these videos were made last year and are specific to GPGPU-Sim.
-* https://www.youtube.com/watch?v=d2bzYap\_fzc
+* https://www.youtube.com/watch?v=d2bzYap_fzc
 * https://www.youtube.com/watch?v=6v0qSPJH-VE&t=3s
 
 The docs are a good place to get started, but, as with any piece of open-source software - looking at the code is your best bet.
@@ -128,10 +128,10 @@ some options, collect the results and analyze them.
 Run the simulation in PTX-driven mode as specified above, then run those same apps in SASS-driven execution.
 Collect the total cycles and instructions simulated. For this data point answer the questions:
 
-**1. What do these numbers say about the design of the PTX versus SASS ISA?**
-**1. What do these numbers say about the optimization level of each code type?**
+1. **What do these numbers say about the design of the PTX versus SASS ISA?**
+1. **What do these numbers say about the optimization level of each code type?**
 
-Hints:
+#### Hints:
 
 To run in SASS-mode, use the following command:
 ```bash
@@ -181,8 +181,8 @@ If you ever want to kill the jobs you launched before they complete, use the fol
 ./util/job_launching/procman.py -k
 ```
 
-All the output from the simulator will be placed in sim\_run\_9.1/<app>/<args>/<config>/ inside each of these directories,
-there will be files labeled \*.o<jobId> and \*.e<jobId> which store the stdour (o) and stderr (e) for each particular run.
+All the output from the simulator will be placed in sim\_run\_9.1/(app)/(args)/(config)/ inside each of these directories,
+there will be files labeled \*.o(jobId) and \*.e(jobId) which store the stdout (o) and stderr (e) for each particular run.
 To help aggregate the data from all the apps, configs, there are some handy scripts that parse all the GPGPU-Sim
 output and create CSV files with the final results.
 
@@ -225,10 +225,10 @@ memory instruction can still generate 4 32-byte accesses. In the worst-case, a c
 
 Answer the following questions:
 
-**1. Is there a connection between these divergence metrics and the application's instructions-per-cycle (IPC)?**
-**1. Comment on why this is (or is not) the case. Remember to use the data to answer this question, not just intuition and if the data runs counter to your intuition, attempt to use other data to explain why. (Hint: Think about occupancy too)**
+1. **Is there a connection between these divergence metrics and the application's instructions-per-cycle (IPC)?**
+1. **Comment on why this is (or is not) the case. Remember to use the data to answer this question, not just intuition and if the data runs counter to your intuition, attempt to use other data to explain why. (Hint: Think about occupancy too)**
 
-## Hints
+#### Hints
 
 There are some existing statistics in the simulator that will help you get the information.
 For SIMD Utilization, after each kernel, the simulator print something that looks like:
@@ -356,9 +356,13 @@ You can turn on the generation of arielvision traces from the cofiguration file 
 
 This will create a gpgpusim\_visualizer\_\_\*.log.gz file.
 This file can then be loaded by the visualizer using the instructions found here:
+
+
 https://github.com/accel-sim/gpgpu-sim_distribution/blob/dev/aerialvision/README
+
+
 NOTE: The manual is slightly outdated. To launch the arielvision executable, use the following
-- and remember that you must do this on a linux machine running the X GUI:
+and remember that you must do this on a linux machine running the X GUI:
 
 ```bash
 ./gpu-simulator/gpgpu-sim/bin/aerialvision.py
@@ -367,7 +371,7 @@ NOTE: The manual is slightly outdated. To launch the arielvision executable, use
 
 ## What to hand in
 
-In your assisngment repo - submit a 1-page pdf plotting the results you collected with a few sentences descirbing what
+In your assisngment repo - submit a maximum 2-page pdf plotting the results you collected with a few sentences descirbing what
 you found with an explanation as to why these differences occurred.
 
 Please create a collect\_stats.sh script that captures the commands you ran
